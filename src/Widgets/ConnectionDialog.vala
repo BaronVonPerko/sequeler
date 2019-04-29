@@ -432,6 +432,7 @@ public class Sequeler.Widgets.ConnectionDialog : Gtk.Dialog {
 		db_name_entry.text = update_data["name"];
 		db_username_entry.text = update_data["username"];
 		db_password_entry.text = old_password;
+		db_sid_entry.text = update_data["sid"];
 
 		if (update_data["file_path"] != null) {
 			db_file_entry.set_uri (update_data["file_path"]);
@@ -697,6 +698,7 @@ public class Sequeler.Widgets.ConnectionDialog : Gtk.Dialog {
 		packaged_data.set ("username", db_username_entry.text);
 		packaged_data.set ("password", db_password_entry.text);
 		packaged_data.set ("port", db_port_entry.text);
+		packaged_data.set ("sid", db_sid_entry.text);
 
 		packaged_data.set ("has_ssh", ssh_switch.active.to_string ());
 		packaged_data.set ("ssh_host", ssh_switch.active ? ssh_host_entry.text : "");

@@ -45,6 +45,7 @@ executable(
     'Services/Types/MySQL.vala',
     'Services/Types/PostgreSQL.vala',
     'Services/Types/SQLite.vala',
+    'Services/Types/Oracle.vala',
 
     'Widgets/ConnectionDialog.vala',
     asresources,

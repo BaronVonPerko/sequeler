@@ -67,6 +67,8 @@ public class Sequeler.Services.ConnectionManager : Object {
 			case "SQLite":
 				db_type = new Sequeler.Services.Types.SQLite ();
 			break;
+			case "Oracle":
+				db_type = new Sequeler.Services.Types.Oracle ();
 		}
 
 		fetch_password ();

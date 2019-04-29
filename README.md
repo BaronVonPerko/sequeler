@@ -62,4 +62,4 @@ com.github.alecaddd.sequelerDevel
 ### Contributors
 - Alberto Fanjul - [Github](https://github.com/albfan)
 - Bilal Elmoussaoui - [Github](https://github.com/bilelmoussaoui) - [Paypal](https://www.paypal.me/BilalELMoussaoui)
-
+- Chris Perko - [Github](https://github.com/baronvonperko) - [Twitter](https://twitter.com/chrisjperko)
