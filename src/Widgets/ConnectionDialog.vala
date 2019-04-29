@@ -36,6 +36,7 @@ public class Sequeler.Widgets.ConnectionDialog : Gtk.Dialog {
 	private Sequeler.Partials.LabelForm db_username_label;
 	private Sequeler.Partials.LabelForm db_password_label;
 	private Sequeler.Partials.LabelForm db_port_label;
+	private Sequeler.Partials.LabelForm db_sid_label;
 
 	private Gtk.Entry connection_id;
 	private Sequeler.Partials.Entry title_entry;
@@ -46,6 +47,7 @@ public class Sequeler.Widgets.ConnectionDialog : Gtk.Dialog {
 	private Sequeler.Partials.Entry db_username_entry;
 	private Sequeler.Partials.Entry db_password_entry;
 	private Sequeler.Partials.Entry db_port_entry;
+	private Sequeler.Partials.Entry db_sid_entry;
 	private Gtk.FileChooserButton db_file_entry;
 
 	private string keyfile1;
@@ -113,6 +115,7 @@ public class Sequeler.Widgets.ConnectionDialog : Gtk.Dialog {
 		db_types.set (1,"MariaDB");
 		db_types.set (2,"PostgreSQL");
 		db_types.set (3,"SQLite");
+		db_types.set (4,"Oracle");
 
 		var header_grid = new Gtk.Grid ();
 		header_grid.margin_start = 30;
@@ -226,6 +229,17 @@ public class Sequeler.Widgets.ConnectionDialog : Gtk.Dialog {
 
 		form_grid.attach (db_port_label, 0, 6, 1, 1);
 		form_grid.attach (db_port_entry, 1, 6, 1, 1);
+
+		db_sid_label = new Sequeler.Partials.LabelForm (_("SID:"));
+		db_sid_entry = new Sequeler.Partials.Entry ("", null);
+
+		db_sid_label.visible = false;
+		db_sid_label.no_show_all = true;
+		db_sid_entry.visible = false;
+		db_sid_entry.no_show_all = true;
+
+		form_grid.attach (db_sid_label, 0, 7, 1, 1);
+		form_grid.attach (db_sid_entry, 1, 7, 1, 1);
 
 		db_file_label = new Sequeler.Partials.LabelForm (_("File Path:"));
 		db_file_entry = new Gtk.FileChooserButton (_("Select Your SQLite File\u2026"), Gtk.FileChooserAction.OPEN);
@@ -458,10 +472,18 @@ public class Sequeler.Widgets.ConnectionDialog : Gtk.Dialog {
 	private void db_type_changed () {
 		var toggle = db_type_entry.get_active () == 3 ? true : false;
 		toggle_database_info (toggle);
+
+		var isOracle = db_type_entry.get_active () == 4 ? true : false;
+		toggle_database_sid (isOracle);
+
 		change_sensitivity ();
 
 		if (db_type_entry.get_active () == 2) {
+			// Postgres
 			db_port_entry.placeholder_text = "5432";
+		} else if (isOracle) {
+			// Oracle
+			db_port_entry.placeholder_text = "1521";
 		} else {
 			db_port_entry.placeholder_text = "3306";
 		}
@@ -500,6 +522,14 @@ public class Sequeler.Widgets.ConnectionDialog : Gtk.Dialog {
 		ssh_switch_container.no_show_all = toggle;
 		ssh_switch_label.visible = !toggle;
 		ssh_switch_label.no_show_all = toggle;
+	}
+
+	private void toggle_database_sid (bool toggle) {
+		db_sid_label.visible = toggle;
+		db_sid_label.no_show_all = !toggle;
+
+		db_sid_entry.visible = toggle;
+		db_sid_entry.no_show_all = !toggle;
 	}
 
 	private void change_sensitivity () {
